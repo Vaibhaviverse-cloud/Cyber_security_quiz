@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber Security Awareness Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Signature element: subtle CRT scanline + flicker overlay -->
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="crt-flicker" aria-hidden="true"></div>
+
+    <!-- Fixed progress bar -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="logo">🛡️ <span>CyberQuiz</span></div>
+        <div class="progress-track">
+          <div class="progress-fill" id="globalProgressFill"></div>
+        </div>
+        <div class="stage-label" id="stageLabel">Home</div>
+      </div>
+    </div>
+
+    <main id="app">
+      <!-- PAGE 1: HOME -->
+      <section class="page active" id="page-home">
+        <div class="glow-circle"></div>
+        <div class="hero">
+          <p class="terminal-line">
+            <span class="prompt">root@secure:~$</span>
+            <span class="typed" id="typedLine"></span
+            ><span class="cursor">▌</span>
+          </p>
+          <p class="eyebrow">DIGITAL SAFETY PROGRAM</p>
+          <h1 class="hero-title" data-text="CYBER SECURITY">
+            CYBER SECURITY<span class="hero-sub">Quiz</span>
+          </h1>
+          <p class="hero-tagline">Stay Safe in the Digital World</p>
+
+          <div class="name-capture">
+            <label for="userNameInput" class="name-label"
+              >Enter your discord name to begin</label
+            >
+            <input
+              type="text"
+              id="userNameInput"
+              class="name-input"
+              placeholder="e.g. vaibhvai_garg"
+              autocomplete="off"
+              maxlength="40"
+            />
+          </div>
+
+          <button class="btn btn-primary btn-lg" id="startBtn">
+            Start Quiz <span class="arrow">→</span>
+          </button>
+          <p class="name-warning hidden" id="nameWarning">
+            Please enter your name first.
+          </p>
+        </div>
+      </section>
+
+      <!-- PAGE 2: CYBER SAFETY RULES -->
+      <section class="page" id="page-rules">
+        <div class="container">
+        
+          <p class="eyebrow">MODULE 00 · BRIEFING</p>
+             <button class="back-btn hidden" id="backBtn" aria-label="Go back">
+          <span class="back-arrow">←</span><span class="back-label">Back</span>
+        </button>
+          <h2 class="page-title">
+            Before starting the challenge, read these important cyber safety
+            rules.
+          </h2>
+          <div class="rules-grid" id="rulesGrid"></div>
+          <div class="nav-row">
+            <button class="btn btn-primary" id="rulesContinueBtn">
+              Continue <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 3: LEVEL 1 - PHISHING VIDEO -->
+      <section class="page" id="page-video">
+        <div class="container narrow">
+          
+          <p class="eyebrow">LEVEL 01</p>
+          <h2 class="page-title">Phishing Awareness</h2>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/WwdkXtLxVUM"
+              title="Phishing Awareness Video"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="hint-text">
+            Watch the video carefully, understand how the scammer carried out
+            the phishing scam and answer the following questions.
+          </p>
+          <div class="nav-row">
+            <button class="btn btn-primary" id="videoNextBtn">
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 4: PHISHING QUIZ -->
+      <section class="page" id="page-quiz">
+        <div class="container narrow">
+          <p class="eyebrow">LEVEL 01</p>
+          <h2 class="page-title">Phishing Quiz</h2>
+          <div class="quiz-list" id="quizList"></div>
+          <div class="nav-row">
+            <button class="btn btn-primary hidden" id="quizNextBtn">
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 5: PASSWORD SECURITY -->
+      <section class="page" id="page-password">
+        <div class="container narrow">
+          <p class="eyebrow">LEVEL 02</p>
+          <h2 class="page-title">Password Security Architecture</h2>
+          <div class="compare-grid">
+            <div class="compare-card weak-card">
+              <div class="compare-head">
+                <span class="compare-icon">⚠️</span>
+                <h3>Weak Password</h3>
+              </div>
+              <code class="compare-example">password123</code>
+              <ul class="compare-list">
+                <li>Common dictionary word</li>
+                <li>Predictable numbers</li>
+                <li>Cracked in seconds</li>
+                <li>Reused across sites</li>
+              </ul>
+            </div>
+            <div class="compare-card strong-card">
+              <div class="compare-head">
+                <span class="compare-icon">🛡️</span>
+                <h3>Strong Password</h3>
+              </div>
+              <code class="compare-example">Tr!ck7#Vault92</code>
+              <ul class="compare-list">
+                <li>Mixed case + symbols</li>
+                <li>No personal info</li>
+                <li>Takes centuries to crack</li>
+                <li>Unique per account</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pw-lab">
+            <h3 class="lab-heading">Live Password Strength Checker</h3>
+            <input
+              type="text"
+              id="pwInput"
+              class="pw-input"
+              placeholder="Type a password to test it..."
+              autocomplete="off"
+            />
+
+            <div class="pw-requirements" id="pwRequirements">
+              <div class="req" data-req="length">
+                <span class="req-dot"></span>Minimum 8 characters
+              </div>
+              <div class="req" data-req="upper">
+                <span class="req-dot"></span>Uppercase letter
+              </div>
+              <div class="req" data-req="lower">
+                <span class="req-dot"></span>Lowercase letter
+              </div>
+              <div class="req" data-req="number">
+                <span class="req-dot"></span>Number
+              </div>
+              <div class="req" data-req="special">
+                <span class="req-dot"></span>Special character
+              </div>
+            </div>
+
+            <div class="strength-meter">
+              <div class="strength-track">
+                <div class="strength-fill" id="strengthFill"></div>
+              </div>
+              <span class="strength-label" id="strengthLabel">—</span>
+            </div>
+
+            <button class="btn btn-secondary" id="pwSubmitBtn">
+              Save This Password
+            </button>
+            <p class="pw-feedback" id="pwFeedback"></p>
+
+            <div class="pw-counter">
+              <span id="pwCounterText">0 / 5</span> strong passwords created
+              <div class="pw-counter-track">
+                <div class="pw-counter-fill" id="pwCounterFill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-row">
+            <button class="btn btn-primary hidden" id="passwordNextBtn">
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 6: SCAM OR NOT -->
+      <section class="page" id="page-scam">
+        <div class="container narrow">
+          <p class="eyebrow">LEVEL 03</p>
+          <h1 class="scam-title">
+            <span class="cyan">SCAM ?</span> <span class="red">NOT ?</span>
+          </h1>
+
+          <div class="scam-counter">
+            Scenario <span id="scamIndexText">1</span> / 20
+          </div>
+          <div class="scenario-card" id="scenarioCard">
+            <!-- injected by JS -->
+          </div>
+
+          <div class="scam-choices" id="scamChoices">
+            <button class="btn btn-scam" id="scamBtnYes">🚨 SCAM</button>
+            <button class="btn btn-scam-not" id="scamBtnNo">✅ NOT SCAM</button>
+          </div>
+
+          <div class="scam-result hidden" id="scamResult">
+            <p class="result-verdict" id="resultVerdict"></p>
+            <p class="result-explain" id="resultExplain"></p>
+            <button class="btn btn-primary" id="scamContinueBtn">
+              Continue <span class="arrow">→</span>
+            </button>
+          </div>
+
+          <div class="nav-row">
+            <button class="btn btn-primary hidden" id="scamNextBtn">
+              Next <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 7: APP SECURITY SETTINGS -->
+      <section class="page" id="page-apps">
+        <div class="container narrow">
+          <p class="eyebrow">LEVEL 04</p>
+          <h2 class="page-title">Secure Your Everyday Apps</h2>
+          <p class="hint-text">
+            Learn the most important security settings for popular applications.
+          </p>
+
+          <div class="apps-progress">
+            <span id="appsCounterText">0 / 6 Apps Secured</span>
+            <div class="apps-progress-track">
+              <div class="apps-progress-fill" id="appsProgressFill"></div>
+            </div>
+          </div>
+
+          <div class="apps-accordion" id="appsAccordion"></div>
+
+          <div class="nav-row">
+            <button class="btn btn-primary hidden" id="finishBtn">
+              Finish <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL PAGE -->
+      <section class="page" id="page-final">
+        <canvas id="confettiCanvas"></canvas>
+        <div class="glow-circle final-glow"></div>
+        <div class="final-content">
+          <h1 class="final-heading">
+            🎉 Congratulations<span id="finalNameDisplay"></span>!
+          </h1>
+          <p class="final-sub">Stay Safe, Stay Smart!</p>
+          <p class="final-message">
+            You have successfully completed the Cyber Security Awareness
+            Challenge.
+          </p>
+
+          <div class="badge">
+            <span class="badge-icon">🛡️</span>
+            <span class="badge-text">SECURE!</span>
+          </div>
+
+          <div class="final-info-grid">
+            <a
+              class="final-info-card"
+              href="https://cybercrime.gov.in"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="info-label"
+                >Official National Cyber Crime Portal</span
+              >
+              <span class="info-value">cybercrime.gov.in</span>
+            </a>
+            <div class="final-info-card">
+              <span class="info-label">Cyber Crime Helpline</span>
+              <span class="info-value">1930</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg" id="restartBtn">
+            Start Again
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
