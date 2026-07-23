@@ -30,6 +30,7 @@ Built **from scratch** with:
 - **HTML5**
 - **CSS3** (no Bootstrap, no Tailwind)
 - **Vanilla JavaScript** (no React, no jQuery, no frameworks/libraries)
+- Also learn new Animations type flicker by using AI 
 
 No build tools, no dependencies, no npm install required — just open `index.html` in a browser and it works.
 
