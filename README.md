@@ -32,7 +32,7 @@ Built **from scratch** with:
 - **Vanilla JavaScript** (no React, no jQuery, no frameworks/libraries)
 - Also learn new Animations type flicker by using AI 
 
-No build tools, no dependencies, no npm install required — just open `index.html` in a browser and it works.
+No build tools, no dependencies, no npm install required — just open `files` in a browser and it works.
 
 > The JS is shipped in a obfuscated form (`script.js`) to keep quiz answers from being trivially visible in "View Source."
 
@@ -45,9 +45,6 @@ No build tools, no dependencies, no npm install required — just open `index.ht
 ├── style.css                    # styles for the website to make it interactive
 └── script.js                    # website logic 
 ```
-
-Only **`index.html`** and **`script.js`** are needed to run the site. Keep them in the same folder.
-
 ---
 
 ##  Running It Locally
