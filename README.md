@@ -41,9 +41,9 @@ No build tools, no dependencies, no npm install required — just open `index.ht
 ## 📂 Project Structure
 
 ```
-├── index.html                   # Main page (all sections + inlined CSS)
-├── script.js                    # Minified app logic — deploy this one
-└── script-source-editable.js    # Readable/commented source (for reference & edits)
+├── index.html                   # Main page (all section)
+├── style.css                    # styles for the website to make it interactive
+└── script.js                    # website logic 
 ```
 
 Only **`index.html`** and **`script.js`** are needed to run the site. Keep them in the same folder.
