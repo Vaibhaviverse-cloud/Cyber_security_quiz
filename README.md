@@ -1,5 +1,5 @@
 # Cyber_security_quiz
-Interactive dark-themed Cyber Security Awareness quiz teaching phishing awareness, password safety, scam detection &amp; app security, developed during my Social Internship. Pure HTML/CSS/JavaScript, no frameworks.
+Simple but Interactive dark-themed Cyber Security Awareness quiz teaching phishing awareness, password safety, scam detection &amp; app security, developed during my Social Internship. Pure HTML/CSS/JavaScript, no frameworks.
 # 🛡️Cyber Security Awareness Quiz
 
 An interactive, dark-themed cyber security awareness platform built for students of NGO School (Classes 9–12) to help them recognize phishing attacks, create strong passwords, identify online scams and secure their everyday applications through engaging, hands-on activities.
