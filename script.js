@@ -1,10 +1,9 @@
-/* CYBER SECURITY AWARENESS QUIZ  */
-
 const STORAGE_KEY = 'cyberQuizState_v2';
 
 /* Answer values are stored base64-encoded so they are not plain-readable
-   in the source file. This is basic obfuscation, just for the people who saw the ans through the view source,
-   however it is not the security the person know about it can be able to read the ans through sources*/
+   in the source file. This is basic obfuscation, not real security —
+   anyone who decodes it in devtools can still see it, but it stops
+   answers from being spotted at a glance in "View Source". */
 function _d(s) { return atob(s); }
 function _db(s) { return atob(s) === '1'; }
 
@@ -43,7 +42,9 @@ function resetState() {
   saveState();
 }
 
-/* HOME: terminal boot line + name capture---------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------
+   HOME: terminal boot line + name capture
+--------------------------------------------------------- */
 function typeTerminalLine() {
   const el = document.getElementById('typedLine');
   if (!el) return;
@@ -90,7 +91,9 @@ function updateFinalNameDisplay() {
   el.textContent = state.userName ? `, ${state.userName}` : '';
 }
 
-/*NAVIGATION-----------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------
+   NAVIGATION
+--------------------------------------------------------- */
 function goTo(sectionId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + sectionId);
@@ -101,6 +104,13 @@ function goTo(sectionId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   if (sectionId === 'final') startConfetti();
+}
+
+function goBack() {
+  const idx = SECTION_ORDER.indexOf(state.section);
+  if (idx > 0) {
+    goTo(SECTION_ORDER[idx - 1]);
+  }
 }
 
 const STAGE_LABELS = {
@@ -119,9 +129,14 @@ function updateTopbar(sectionId) {
   const pct = (idx / (SECTION_ORDER.length - 1)) * 100;
   document.getElementById('globalProgressFill').style.width = pct + '%';
   document.getElementById('stageLabel').textContent = STAGE_LABELS[sectionId] || '';
+
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) backBtn.classList.toggle('hidden', idx <= 0);
 }
 
-/*PAGE 2: SAFETY RULES------------------------------------------------------------------------------------------------------------ */
+/* ---------------------------------------------------------
+   PAGE 2: SAFETY RULES
+--------------------------------------------------------- */
 const RULES = [
   'Never reveal your OTP.',
   'Use strong passwords.',
@@ -243,12 +258,12 @@ function checkQuizAnswer(id) {
 
   const fb = document.getElementById(`feedback-${id}`);
   if (correct) {
-    fb.textContent = '✅ Correct!';
+    fb.textContent = 'Correct!';
     fb.className = 'q-feedback ok';
     state.quizAnswers[id] = true;
     markQuizCorrect(id, true);
   } else {
-    fb.textContent = '❌ Not quite — try again.';
+    fb.textContent = 'Not quite — try again.';
     fb.className = 'q-feedback bad';
     state.quizAnswers[id] = false;
   }
@@ -262,7 +277,7 @@ function markQuizCorrect(id, correct) {
   if (correct) {
     card.classList.add('correct');
     const fb = document.getElementById(`feedback-${id}`);
-    fb.textContent = '✅ Correct!';
+    fb.textContent = 'Correct!';
     fb.className = 'q-feedback ok';
   }
 }
@@ -272,7 +287,9 @@ function updateQuizNextVisibility() {
   document.getElementById('quizNextBtn').classList.toggle('hidden', !allCorrect);
 }
 
-/*PAGE 5: PASSWORD SECURITY---------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------
+   PAGE 5: PASSWORD SECURITY
+--------------------------------------------------------- */
 function evaluatePassword(pw) {
   const checks = {
     length: pw.length >= 8,
@@ -329,7 +346,7 @@ function initPasswordLab() {
     state.passwordsCreated = Math.min(5, state.passwordsCreated + 1);
     saveState();
     updatePwCounterUI();
-    feedback.textContent = `✅ Strong password saved! (${state.passwordsCreated}/5)`;
+    feedback.textContent = `Strong password saved! (${state.passwordsCreated}/5)`;
     feedback.style.color = '#2ee6a8';
     input.value = '';
     input.dispatchEvent(new Event('input'));
@@ -348,7 +365,9 @@ function updatePwCounterUI() {
   }
 }
 
-/*PAGE 6: SCAM OR NOT---------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------
+   PAGE 6: SCAM OR NOT
+--------------------------------------------------------- */
 const SCENARIOS = [
   { type: 'SMS', sender: 'Unknown Number', body: 'Your bank account has been blocked.\nClick here immediately to verify.', isScam: _db('MQ=='),
     explain: 'Banks never ask you to "click here immediately" via SMS to unblock an account. This urgency + unknown link combo is classic phishing.' },
@@ -403,6 +422,10 @@ const SCENARIOS = [
     explain: 'Legitimate WiFi portals never ask for your Google password. This is a credential-harvesting trap on public networks.' },
   { type: 'Official School Notice', sender: 'School Admin (Verified)', body: "Tomorrow's classes are cancelled due to heavy rain.", isScam: _db('MA=='),
     explain: 'A routine, verified announcement from an official school channel with no request for money, links, or personal data.' }
+
+
+
+  
   
 ];
 
@@ -440,7 +463,7 @@ function answerScenario(userSaysScam) {
 
   const verdict = document.getElementById('resultVerdict');
   const explain = document.getElementById('resultExplain');
-  verdict.textContent = correct ? '✅ Correct' : '❌ Wrong';
+  verdict.textContent = correct ? 'Correct' : 'Wrong';
   verdict.className = 'result-verdict ' + (correct ? 'ok' : 'bad');
   explain.textContent = `${s.isScam ? 'This was a SCAM.' : 'This was NOT a scam.'} ${s.explain}`;
 }
@@ -454,8 +477,10 @@ function nextScenario() {
   }
 }
 
-/*PAGE 7: APP SECURITY SETTINGS---------------------------------------------------------------------------------------------------*/
-/* imp. Brand glyphs sourced locally from the Simple Icons project (CC0 licensed,
+/* ---------------------------------------------------------
+   PAGE 7: APP SECURITY SETTINGS
+--------------------------------------------------------- */
+/* Brand glyphs sourced locally from the Simple Icons project (CC0 licensed,
    https://simpleicons.org) — monochrome identification icons, not official
    marketing logos. fill uses currentColor so CSS controls the color. */
 const ICON_SVGS = {
@@ -581,7 +606,9 @@ function updateAppsOverallProgress() {
   document.getElementById('finishBtn').classList.toggle('hidden', securedCount < 6);
 }
 
-/*FINAL PAGE — CONFETTI-------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------
+   FINAL PAGE — CONFETTI
+--------------------------------------------------------- */
 let confettiRunning = false;
 function startConfetti() {
   if (confettiRunning) return;
@@ -638,7 +665,9 @@ function startConfetti() {
   draw();
 }
 
-/*INIT---------------------------------------------------------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------
+   INIT
+--------------------------------------------------------- */
 function init() {
   renderRules();
   renderQuiz();
@@ -650,6 +679,7 @@ function init() {
   updateFinalNameDisplay();
 
   document.getElementById('startBtn').addEventListener('click', handleStartClick);
+  document.getElementById('backBtn').addEventListener('click', goBack);
   document.getElementById('rulesContinueBtn').addEventListener('click', () => goTo('video'));
   document.getElementById('videoNextBtn').addEventListener('click', () => goTo('quiz'));
   document.getElementById('quizNextBtn').addEventListener('click', () => goTo('password'));
@@ -664,7 +694,7 @@ function init() {
     location.reload();
   });
 
-  // imp. Restore saved section (but always allow re-visiting; start user where they left off)
+  // Restore saved section (but always allow re-visiting; start user where they left off)
   goTo(state.section || 'home');
 }
 
